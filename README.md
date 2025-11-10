@@ -4,13 +4,22 @@ A batch script that demonstrates how to detect Any.run sandbox environment by ex
 
 ## How It Works
 
-This script detects Any.run by attempting to create and write to a directory that Any.run protects:
+This script detects Any.run by attempting to write to a directory that Any.run specifically uses and protects:
+
+2. **Directory Access Test** - Attempts to access `C:\Program Files\KernelLogger\`
+3. **File Write Test**       - Tries to write a test file to this location
+4. **Detection**             - Failure: Any.run environment
 
 ## The Detection Principle
 
+**Key Insight**: `C:\Program Files\KernelLogger\` is **not a Windows system directory** - it's created and used exclusively by Any.run for its own components.
+
 On normal Windows systems:
-- Admin users can freely create/write to `C:\Program Files\KernelLogger\`
+- `C:\Program Files\KernelLogger\` doesn't exist by default
+- Admin users can freely create and write to this directory
 
 On Any.run:
-- The directory is protected (even from admin users)
-- Any.run hides and secures its own files in this location
+- The directory already exists and contains Any.run's files
+- Any.run implements extra protection to prevent tampering with its components
+- Even with admin rights, write attempts fail due to sandbox self-protection
+- The directory is hidden/protected from modification
