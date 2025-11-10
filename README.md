@@ -23,3 +23,6 @@ On Any.run:
 - Any.run implements extra protection to prevent tampering with its components
 - Even with admin rights, write attempts fail due to sandbox self-protection
 - The directory is hidden/protected from modification
+
+## Disclaimer
+This is for educational and security research purposes only. Use this responsibly.
