@@ -1,7 +1,6 @@
 @echo off
-setlocal
-
 net session >nul 2>&1
+
 if %errorLevel% neq 0 (
     PowerShell -Command "Start-Process cmd -ArgumentList '/c \"%~f0\"' -Verb RunAs"
     exit /b
