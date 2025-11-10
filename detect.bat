@@ -6,35 +6,41 @@ if %errorLevel% neq 0 (
     exit /b
 )
 
-set "targetDir=C:\Program Files\KernelLogger"
-set "targetFile=%targetDir%\test.txt"
-set "success=0"
+set "Dir=C:\Program Files\KernelLogger"
+set "File=%Dir%\soyssv.txt"
+set "IsNotAnyRun=0"
 
-if not exist "%targetDir%" (
-    mkdir "%targetDir%"
+if not exist "%Dir%" (
+    mkdir "%Dir%" 2>nul
     if %errorLevel% neq 0 (
-        goto :cleanup
+        goto :clean
     )
 )
 
-echo https://github.com/soyssv > "%targetFile%"
+echo https://github.com/soyssv > "%File%"
 
 if %errorLevel% neq 0 (
-    goto :cleanup
+    goto :clean
 )
 
-set "success=1"
-type "%targetFile%"
+set "IsNotAnyRun=1"
+type "%File%"
 echo.
 
-:cleanup
-if exist "%targetFile%" (
-    del "%targetFile%"
+:clean
+if exist "%File%" (
+    del "%File%" >nul 2>&1
 )
 
-if "%success%"=="1" (
+if exist "%Dir%" (
+    rd "%Dir%" >nul 2>&1
+)
+
+if "%IsNotAnyRun%"=="1" (
     echo any.run not detected
 ) else (
+    echo https://github.com/soyssv
+    echo.
     echo any.run detected
 )
 
